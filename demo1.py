@@ -3,6 +3,7 @@ import torch
 
 def main():
     model_dir = "FunAudioLLM/Fun-ASR-Nano-2512"
+    # 指定模型路径
     device = (
         "cuda:0"
         if torch.cuda.is_available()
@@ -23,6 +24,7 @@ def main():
     )
 
     wav_path = f"{model.model_path}/example/zh.mp3"
+    # 输入音频路径
     res = model.generate(
         input=[wav_path],
         cache={},
@@ -36,6 +38,7 @@ def main():
         language="中文",
         itn=True,  # or False
     )
+    # 推理 1
     text = res[0]["text"]
     print(text)
 
@@ -48,6 +51,7 @@ def main():
         device=device,
     )
     res = model.generate(input=[wav_path], cache={}, batch_size=1)
+    # 推理 2，进入model.py第40行init
     text = res[0]["text"]
     print(text)
 
